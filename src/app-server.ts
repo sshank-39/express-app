@@ -8,7 +8,7 @@ app.get('/hello', (req, res) => {
 })
 
 // Start the server
-const port = 3008;
+const port = 8080;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
