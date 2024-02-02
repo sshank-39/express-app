@@ -32,43 +32,25 @@ const config = {
   host: 'testdb-263139.database.windows.net',
   database: 'test-db-263139',
   port: 1433,
-  // Use Managed System Identity authentication
-  // dialectOptions: {
-  //   options: {
-  //     authentication: {
-  //       type: 'azure-active-directory-msi-app-service',
-  //       options: {
-  //         msiIdentityClientId: '01e4b376-6689-4d8e-b2a6-bf46198b1861',
-  //       },
-  //     },
-  //     debug: {
-  //       packet: true,
-  //       payload: true,
-  //       token: false,
-  //       data: true,
-  //     },
-  //   },
-  // },
   dialectOptions: {
-    options: {
-      trustServerCertificate: true, // Enable for self-signed certificates
-      cryptoCredentialsDetails: {
-        minVersion: 'TLSv1', // Specify minimum TLS version
-      },
-      authentication: {
-        type: 'azure-active-directory-msi-vm',
-        options: {
-          msiIdentityClientId: '01e4b376-6689-4d8e-b2a6-bf46198b1861',
-        },
+    authentication: {
+      type: 'azure-active-directory-msi-vm', 
+      options: {
+        msiClientId: '01e4b376-6689-4d8e-b2a6-bf46198b1861', // Replace with your Service Principal's client ID 
       },
     },
   },
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 30000,
-  },
+  // dialectOptions: {
+  //   options: {
+  //     authentication: {
+  //       type: 'azure-active-directory-msi-vm',
+  //       // options: {
+  //       //   msiIdentityClientId: '01e4b376-6689-4d8e-b2a6-bf46198b1861',
+  //       // },
+  //     },
+  //     encrypt: true
+  //   },
+  // },
 };
 
 const sequelize = new Sequelize(config);
