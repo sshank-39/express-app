@@ -9,7 +9,6 @@ app.get('/hello', (req, res) => {
   res.status(200).send('Hello world!');
 })
 
-
 // Start the server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
