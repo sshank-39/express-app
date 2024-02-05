@@ -3,17 +3,17 @@ import { Sequelize, Dialect } from 'sequelize'; // Import Sequelize
 
 const dialect: Dialect = 'mssql';
 
-// const app = express();
+const app = express();
 
-// app.get('/hello', (req, res) => {
-//   res.status(200).send('Hello world!');
-// })
+app.get('/hello', (req, res) => {
+  res.status(200).send('Hello world!');
+})
 
-// // Start the server
-// const port = 8081;
-// app.listen(port, () => {
-//   console.log(`Server listening on port ${port}`);
-// });
+// Start the server
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
+});
 
 // const config = {
 //   server: process.env["db_server"],
@@ -34,7 +34,7 @@ const config = {
   port: 1433,
   dialectOptions: {
     authentication: {
-      type: 'azure-active-directory-msi-vm', 
+      type: 'azure-active-directory-msi-vm',
       options: {
         msiClientId: '01e4b376-6689-4d8e-b2a6-bf46198b1861', // Replace with your Service Principal's client ID 
       },
@@ -64,3 +64,12 @@ sequelize
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   });
+
+app.get('/test',async (req, res) => {
+  try {
+    const resp = await sequelize.authenticate();
+    res.send('Connection has been established successfully.');
+  } catch (error) {
+    res.send(`Unable to connect to the database: ${error}`)
+  }
+})
